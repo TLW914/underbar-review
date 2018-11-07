@@ -131,16 +131,16 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
-  
+
   // return uniqArray
   // if (iterator){
   //   array = _.map(array, iterator);
   // }
-  
+
   // return [...new Set(array)];
 
 
-    
+
 };
 
 
@@ -178,19 +178,19 @@
   // Reduces an array or object to a single value by repetitively calling
   // iterator(accumulator, item) for each item. accumulator should be
   // the return value of the previous iterator call.
-  //  
+  //
   // You can pass in a starting value for the accumulator as the third argument
   // to reduce. If no starting value is passed, the first element is used as
   // the accumulator, and is never passed to the iterator. In other words, in
   // the case where a starting value is not passed, the iterator is not invoked
   // until the second element, with the first element as its second argument.
-  //  
+  //
   // Example:
   //   var numbers = [1,2,3];
   //   var sum = _.reduce(numbers, function(total, number){
   //     return total + number;
   //   }, 0); // should be 6
-  //  
+  //
   //   var identity = _.reduce([5], function(total, number){
   //     return total + number * number;
   //   }); // should be 5, regardless of the iterator function passed in
@@ -199,7 +199,7 @@
     if (!Array.isArray(collection)){
       collection = Object.values(collection);
     }
-      
+
     if (arguments.length === 2){
         // iterator = accumulator;
         accumulator = collection[0];
@@ -212,8 +212,8 @@
         }
       }
       return accumulator;
-      
-      
+
+
   };
 
 
@@ -237,7 +237,7 @@
       for (var i=0; i<collection.length; i++){
         if (iterator(collection[i])){
           everyArr.push(collection[i]);
-        } 
+        }
       }
     }else if (!iterator){
       var everyArr = [];
@@ -252,7 +252,7 @@
     } else {
       return false;
     }
-  
+
     // TIP: Try re-using reduce() here.
   };
 
@@ -262,7 +262,7 @@
     for (let e of collection){
       if (_.every([e], iterator)){ return true;}
     }
-    
+
     return false;
     // TIP: There's a very clever way to re-use every() here.
   };
@@ -292,7 +292,7 @@
     }
     return obj;
   }
-  
+
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
@@ -310,7 +310,7 @@
       }
     }
     return obj;
-  
+
   };
 
 
@@ -370,15 +370,15 @@
           var result = func.apply(null, arguments);
           cache[key] = result;
           return result;
-        } 
+        }
       }
     };
-  
+
   //have an empty object cache
   //once function runs once, return value and stringify the function
   //set the key in object cache to stringified function and the value to value
-  //when memoize is invoked with func 
-    //it will look up if func exists 
+  //when memoize is invoked with func
+    //it will look up if func exists
     // - if it does it will return the value of the func key
 
 
@@ -389,7 +389,7 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
-    
+
     if (arguments.length>2){
         setTimeout(func(arguments[2],arguments[3]), wait);
       }
@@ -407,10 +407,20 @@
   // TIP: This function's test suite will ask that you not modify the original
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
+
   _.shuffle = function(array) {
+    var copyArr = array.slice();
+    var shuffleArr = [];
+    for(var i=0; i<copyArr.length+1; i++){
+      var index = Math.floor(Math.random() * (copyArr.length));
+      shuffleArr.push(copyArr[index]);
+      copyArr.splice(index,1);
+      if (copyArr.length === 1){
+        shuffleArr.push(copyArr[0]);
+      }
+    }
+      return shuffleArr;
   };
-
-
   /**
    * ADVANCED
    * =================
